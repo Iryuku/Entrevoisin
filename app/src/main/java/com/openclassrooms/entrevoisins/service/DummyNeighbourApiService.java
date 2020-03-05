@@ -19,6 +19,10 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     public List<Neighbour> getNeighbours() {
         return neighbours;
     }
+    @Override
+    public Neighbour getNeighbourById(int id) {
+        return neighbours.get(id);
+    }
 
     /**
      * {@inheritDoc}

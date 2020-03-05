@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
@@ -40,17 +41,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_neighbour, parent, false);
         return new ViewHolder(view);
-        Gson gson = new Gson();
-
-        holder.itemView.setOnClickListener(v -> {
-
-            Context context= v.getContext();
-            Intent intent= new Intent(context, DetailNeighbourActivity.class);
-            intent.putExtra("Neighbour", gson.toJson(mNeighbour));
-            context.startActivity(intent);
-
-        });
-
     }
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -60,12 +50,15 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .load(neighbour.getAvatarUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
+        Gson gson = new Gson();
+
         holder.itemView.setOnClickListener(v -> {
-            Intent intent= new Intent(mContext, DetailNeighbourActivity.class);
-            intent.putExtra("Name", neighbour.getName());
-            intent.putExtra("NAME_NEIGHBOUR",neighbour.getAvatarUrl());
-            intent.putExtra("AVATAR_NEIGHBOUR",neighbour.getAvatarUrl());
-            mContext.startActivity(intent);
+
+            Context context= v.getContext();
+            Intent intent= new Intent(context, DetailNeighbourActivity.class);
+            intent.putExtra("Neighbour", gson.toJson(neighbour));
+            context.startActivity(intent);
+
         });
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
