@@ -18,8 +18,11 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        return NeighbourFragment.newInstance();
-    }
+
+    if (position == 1)
+            return NeighbourFragment.newInstance("favorites");
+            return NeighbourFragment.newInstance("neighbours");
+}
 
     /**
      * get the number of pages
@@ -27,6 +30,5 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
-}

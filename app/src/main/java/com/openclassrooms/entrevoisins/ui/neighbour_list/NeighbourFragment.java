@@ -2,6 +2,8 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +21,10 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 
 public class NeighbourFragment extends Fragment {
@@ -27,7 +32,7 @@ public class NeighbourFragment extends Fragment {
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-
+    private String mSection
 
     /**
      * Create and return a new instance
@@ -35,13 +40,18 @@ public class NeighbourFragment extends Fragment {
      */
     public static NeighbourFragment newInstance() {
         NeighbourFragment fragment = new NeighbourFragment();
+        Bundle args = new Bundle();
+        args.putString("section", "section);
+        fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
+        mSection = getArguments().getString("section");
     }
 
     @Override
@@ -59,9 +69,18 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        List<Neighbour> mNeighbours = mApiService.getNeighbours();
-        MyNeighbourRecyclerViewAdapter mAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours, getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        mNeighbours = mApiService.getNeighbours();
+        if (mSection == "favorites") {
+            List<Neighbour> favoriteNeighbors = new ArrayList<>(); {
+                };
+            for (Neighbour n : mNeighbours) {
+                if (n.isFavorites())
+                    favoriteNeighbors.add(n);
+            }
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(favoriteNeighbors));
+        } else {
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        }
     }
 
     @Override

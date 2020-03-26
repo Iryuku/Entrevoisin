@@ -44,10 +44,14 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
+                   mApiServices.changeNeighbourFavoriteStatus(neighbour);
+                    neighbour.setFavorites(!neighbour.isFavorites());
+                    if (neighbour.isFavorites()) {
+                        fab.setImageDrawable(getDrawable(R.drawable.ic_star_black_24dp));
+                    } else {
+                        fab.setImageDrawable(getDrawable(R.drawable.ic_star_white_24dp));
+                    }
+                }
         });
     }
 

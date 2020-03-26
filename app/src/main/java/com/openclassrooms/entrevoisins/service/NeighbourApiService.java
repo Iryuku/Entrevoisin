@@ -28,18 +28,5 @@ public interface NeighbourApiService {
      */
     void createNeighbour(Neighbour neighbour);
     Neighbour getNeighbourById(int id);
-    @Override
-    public void changeNeighbourFavoriteStatus(Neighbour neighbour) {
-        neighbours.get(neighbours.indexOf(neighbour)).setFavoriteStatus(!neighbour.isFavoriteStatus());
-    }
-    mFavFab.setOnClickListener(v -> {
-        mApiService.changeNeighbourFavoriteStatus(mNeighbour);
-        mNeighbour.setFavoriteStatus(!mNeighbour.isFavoriteStatus());
-        if (mNeighbour.isFavoriteStatus()) {
-            mFavFab.setImageDrawable(mStarYellow);
-        } else {
-            mFavFab.setImageDrawable(mStarBorderWhite);
-        }
-    });
-
-}
+    void changeNeighbourFavoriteStatus(Neighbour neighbour);
+  }
