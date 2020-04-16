@@ -10,16 +10,24 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 
@@ -51,9 +59,9 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
-        onView(ViewMatchers.withId(R.id.list_neighbours))
+        onView(withId(R.id.list_neighbours))
                 .check(matches(hasMinimumChildCount(1)));
-    }
+       }
 
     /**
      * When we delete an item, the item is no more shown
@@ -61,11 +69,52 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
-        onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
+        onView(withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
-        onView(ViewMatchers.withId(R.id.list_neighbours))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
+        onView(withId(R.id.list_neighbours))
+                .perform(actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
+        onView(withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
     }
+
+    // Test 1
+    /*test vérifiant que lorsqu’on clique sur un élément de la liste,
+    l’écran de détails est bien lancé ;*/
+    @Test
+    public void click_item_to_ListDetailNeighbourActivity(){
+
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed()))
+                .perform(actionOnItemAtPosition(0,click()));
+
+        onView(withId(R.id.detailayout)).check(matches(isDisplayed()));
+
+    }
+    //Test 2
+    /*test vérifiant qu’au démarrage de ce nouvel écran, le TextView indiquant le nom de
+    l’utilisateur en question est bien rempli ;*/
+    @Test
+    public void listDetailNeighbourActivity_name_isDisplay(){
+
+        String ITEM_NAME= "Caroline";
+
+        onView(Matchers.allOf(withId(R.id.list_neighbours), isDisplayed()))
+                .perform(actionOnItemAtPosition(0, click()));
+
+        onView(withId(R.id.detailayout)).check(matches(isDisplayed()));
+
+        onView((allOf(withId(R.id.person_name),isDisplayed())))
+                .check(matches(withText(ITEM_NAME)));
+
+    }
+    // Test 4
+    /*test vérifiant que l’onglet Favoris n’affiche que les voisins marqués comme
+    favoris.*/
+    @Test
+    public void favoriteNeighbourList_should_show_only_favouriteList() {
+
+        onView(withContentDescription("Favorites")).perform(click());
+
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(3));
+    }
+
 }

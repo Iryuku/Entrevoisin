@@ -21,6 +21,7 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -32,16 +33,16 @@ public class NeighbourFragment extends Fragment {
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-    private String mSection
+    private String mSection;
 
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
+    public static NeighbourFragment newInstance(String section) {
         NeighbourFragment fragment = new NeighbourFragment();
         Bundle args = new Bundle();
-        args.putString("section", "section);
+        args.putString("section", section);
         fragment.setArguments(args);
         return fragment;
     }

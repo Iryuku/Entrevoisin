@@ -13,22 +13,25 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * getItem is called to instantiate the fragment for the given page.
+     *
      * @param position
      * @return
      */
     @Override
     public Fragment getItem(int position) {
 
-    if (position == 1)
+        if (position == 1)
             return NeighbourFragment.newInstance("favorites");
-            return NeighbourFragment.newInstance("neighbours");
-}
+        return NeighbourFragment.newInstance("neighbours");
+    }
 
     /**
      * get the number of pages
+     *
      * @return
      */
     @Override
     public int getCount() {
         return 2;
     }
+}
