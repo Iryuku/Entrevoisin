@@ -64,6 +64,7 @@ public class NeighboursListTest {
        }
 
     /**
+     * test 3:
      * When we delete an item, the item is no more shown
      */
     @Test
@@ -78,8 +79,8 @@ public class NeighboursListTest {
     }
 
     // Test 1
-    /*test vérifiant que lorsqu’on clique sur un élément de la liste,
-    l’écran de détails est bien lancé ;*/
+    /*test checking if when you click on an item on the list,
+    The details screen is launched ;*/
     @Test
     public void click_item_to_ListDetailNeighbourActivity(){
 
@@ -90,8 +91,7 @@ public class NeighboursListTest {
 
     }
     //Test 2
-    /*test vérifiant qu’au démarrage de ce nouvel écran, le TextView indiquant le nom de
-    l’utilisateur en question est bien rempli ;*/
+    /*test checking if at the start of the new string, the text view show the good name ;*/
     @Test
     public void listDetailNeighbourActivity_name_isDisplay(){
 
@@ -107,8 +107,8 @@ public class NeighboursListTest {
 
     }
     // Test 4
-    /*test vérifiant que l’onglet Favoris n’affiche que les voisins marqués comme
-    favoris.*/
+    /*test checking if the tab's favorites show only favorites neighbour.
+    */
     @Test
     public void favoriteNeighbourList_should_show_only_favouriteList() {
 

@@ -44,16 +44,15 @@
             android:id="@+id/person_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Profil"
             android:paddingStart="20dp"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry"
             android:layout_marginTop="10dp"/>
             <TextView
+                android:id="@+id/localisation_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="localisation"
             android:paddingStart="20dp"
             android:textSize="12sp"
             android:drawableStart="@drawable/ic_location_on_black_24dp"
@@ -63,25 +62,26 @@
             android:layout_marginTop="20dp"/>
 
         <TextView
+            android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_phone_black_24dp"
             android:drawablePadding="5dp"
             android:paddingStart="20dp"
             android:singleLine="true"
-            android:text="numéro"
             android:textSize="12sp"
             tools:ignore="RtlSymmetry"
             android:layout_marginTop="20dp"/>
 
         <TextView
+            android:id="@+id/facebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_language_black_24dp"
             android:drawablePadding="5dp"
             android:paddingStart="20dp"
             android:singleLine="true"
-            android:text="www.facebook.fr/@+id/person_name"
+            android:text="www.facebook.fr/"
             android:textSize="12sp"
             tools:ignore="RtlSymmetry"
             android:layout_marginTop="20dp"/>
@@ -116,17 +116,16 @@
             tools:ignore="RtlSymmetry"
             android:layout_marginTop="10dp"/>
         <TextView
+            android:id="@+id/aboutme_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:paddingStart="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             tools:ignore="RtlSymmetry"
-            android:text="Bonjour!Je souhaiterais faire de la marche nordique.
-            Pas initiée, je recherche une ou plusieurs personnes
-            suceptibles de m'accompagner!J'aime les jeux de
-            cartes tels la belote et le tarot..."/>
+            />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView >

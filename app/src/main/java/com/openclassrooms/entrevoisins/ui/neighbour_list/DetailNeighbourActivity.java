@@ -17,6 +17,8 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import java.util.Objects;
+
 public class DetailNeighbourActivity extends AppCompatActivity {
     Neighbour neighbour;
     boolean favoriteNeighbour;
@@ -27,6 +29,8 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_neighbour);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         Gson gson = new Gson();
         String strObj = getIntent().getStringExtra("Neighbour");
         neighbour = gson.fromJson(strObj, Neighbour.class);
@@ -39,8 +43,21 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(neighbour.getAvatarUrl())
                 .into(mAvatar);
+        TextView localisation = findViewById(R.id.localisation_name);
+        localisation.setText(neighbour.getAddress());
+        TextView phoneNumber = findViewById(R.id.phoneNumber);
+        phoneNumber.setText(neighbour.getPhoneNumber());
+        TextView facebook = findViewById(R.id.facebook);
+        TextView aboutme = findViewById(R.id.aboutme_name);
+        aboutme.setText(neighbour.getAboutMe());
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        if (neighbour.isFavorites()) {
+            fab.setImageDrawable(getDrawable(R.drawable.ic_star_black_24dp));
+        } else {
+            fab.setImageDrawable(getDrawable(R.drawable.ic_star_border_black_24dp));
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +66,7 @@ public class DetailNeighbourActivity extends AppCompatActivity {
                     if (neighbour.isFavorites()) {
                         fab.setImageDrawable(getDrawable(R.drawable.ic_star_black_24dp));
                     } else {
-                        fab.setImageDrawable(getDrawable(R.drawable.ic_star_white_24dp));
+                        fab.setImageDrawable(getDrawable(R.drawable.ic_star_border_black_24dp));
                     }
                 }
         });
