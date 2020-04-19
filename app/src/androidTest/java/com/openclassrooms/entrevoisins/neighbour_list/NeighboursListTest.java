@@ -59,9 +59,10 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
-        onView(withId(R.id.list_neighbours))
+        onView(Matchers.allOf(withId(R.id.list_neighbours), isDisplayed()))
                 .check(matches(hasMinimumChildCount(1)));
-       }
+    }
+
 
     /**
      * test 3:
@@ -70,13 +71,15 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
-        onView(withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
-        onView(withId(R.id.list_neighbours))
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
                 .perform(actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
+
     }
+
 
     // Test 1
     /*test checking if when you click on an item on the list,
@@ -107,8 +110,7 @@ public class NeighboursListTest {
 
     }
     // Test 4
-    /*test checking if the tab's favorites show only favorites neighbour.
-    */
+    /*test checking if the tab's favorites show only favorites's neighbour*/
     @Test
     public void favoriteNeighbourList_should_show_only_favouriteList() {
 

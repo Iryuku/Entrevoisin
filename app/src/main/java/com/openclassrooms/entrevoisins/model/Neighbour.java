@@ -48,6 +48,7 @@ public class Neighbour {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.aboutMe = aboutMe;
+        this.favorites = favorites;
     }
 
     public long getId() {
@@ -110,4 +111,4 @@ public class Neighbour {
     public int hashCode() {
         return Objects.hash(id);
     }
-}
+    }
