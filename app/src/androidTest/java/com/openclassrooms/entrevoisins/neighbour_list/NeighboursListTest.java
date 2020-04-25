@@ -113,6 +113,8 @@ public class NeighboursListTest {
     }
     // Test 4
     /*test checking if the tab's favorites show only favorites's neighbour*/
+    // Test 4
+    /*test checking if the tab's favorites show only favorites's neighbour*/
     @Test
     public void favoriteViewOnlyDisplayFavoritesNeighbour() {
 
@@ -120,7 +122,8 @@ public class NeighboursListTest {
 
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
         onView(ViewMatchers.withId(R.id.fab)).perform(click());
-        onView(ViewMatchers.withId(R.id.fab)).perform(pressBack());
+        onView(ViewMatchers.withId(R.id.detailayout)).perform(pressBack());
+
         onView(withId(R.id.container)).perform(swipeLeft());
 
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(favoritesCount + 1));
