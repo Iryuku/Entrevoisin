@@ -34,6 +34,7 @@ public class NeighbourFragment extends Fragment {
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
     private String mSection;
+    private List<Neighbour> mFavoriteNeighbours;
 
     /**
      * Create and return a new instance
@@ -71,14 +72,10 @@ public class NeighbourFragment extends Fragment {
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
+        mFavoriteNeighbours = mApiService.getFavorisNeighbours();
+
         if (mSection == "favorites") {
-            List<Neighbour> favoriteNeighbors = new ArrayList<>(); {
-                };
-            for (Neighbour n : mNeighbours) {
-                if (n.isFavorites())
-                    favoriteNeighbors.add(n);
-            }
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(favoriteNeighbors));
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoriteNeighbours));
         } else {
             mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
         }

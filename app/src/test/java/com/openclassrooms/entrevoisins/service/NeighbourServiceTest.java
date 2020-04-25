@@ -42,13 +42,14 @@ public class NeighbourServiceTest {
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }
     @Test
-    public void ChangeNeighbourFavoriteStatus(){
-
-        service.getNeighbours().get(1).setFavorites(false);
-        assertFalse(service.getNeighbours().get(1).isFavorites());
-        service.getNeighbours().get(1).setFavorites(true);
-        assertTrue(service.getNeighbours().get(1).isFavorites());
-
+    public void changeNeighbourFavoriteStatus() {
+        Neighbour neighbour = service.getNeighbours().get(2);
+        assertFalse(service.getNeighbours().get(2).isFavorites());
+        service.changeNeighbourFavoriteStatus(neighbour);
+        assertTrue(service.getNeighbours().get(2).isFavorites());
+        service.changeNeighbourFavoriteStatus(neighbour);
+        assertFalse(service.getNeighbours().get(2).isFavorites());
     }
+
 
 }

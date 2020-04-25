@@ -50,25 +50,32 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         TextView facebook = findViewById(R.id.facebook);
         TextView aboutme = findViewById(R.id.aboutme_name);
         aboutme.setText(neighbour.getAboutMe());
+        //TextView Name2 = findViewById(R.id.activity_neighbour_details_toolbar_txt);
+        favoriteNeighbour = neighbour.isFavorites();
+        Name.setText(name);
+        getSupportActionBar().setTitle(name);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        if (neighbour.isFavorites()) {
+        if (favoriteNeighbour) {
             fab.setImageDrawable(getDrawable(R.drawable.ic_star_black_24dp));
         } else {
             fab.setImageDrawable(getDrawable(R.drawable.ic_star_border_black_24dp));
         }
 
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   mApiServices.changeNeighbourFavoriteStatus(neighbour);
-                    neighbour.setFavorites(!neighbour.isFavorites());
-                    if (neighbour.isFavorites()) {
-                        fab.setImageDrawable(getDrawable(R.drawable.ic_star_black_24dp));
-                    } else {
-                        fab.setImageDrawable(getDrawable(R.drawable.ic_star_border_black_24dp));
-                    }
+                if (!favoriteNeighbour) {
+                    favoriteNeighbour = true;
+                    fab.setImageDrawable(getDrawable(R.drawable.ic_star_black_24dp));
+                } else {
+                    favoriteNeighbour = false;
+                    fab.setImageDrawable(getDrawable(R.drawable.ic_star_border_black_24dp));
                 }
+                mApiServices.changeNeighbourFavoriteStatus(neighbour);
+
+            }
         });
     }
 
