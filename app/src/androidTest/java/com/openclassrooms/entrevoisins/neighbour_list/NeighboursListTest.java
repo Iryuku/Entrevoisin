@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.pressBack;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
@@ -112,11 +114,17 @@ public class NeighboursListTest {
     // Test 4
     /*test checking if the tab's favorites show only favorites's neighbour*/
     @Test
-    public void favoriteNeighbourList_should_show_only_favouriteList() {
+    public void favoriteViewOnlyDisplayFavoritesNeighbour() {
 
-        onView(withContentDescription("Favorites")).perform(click());
+        Integer favoritesCount = 3;
 
-        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(3));
+        onView(allOf(ViewMatchers.withId(R.id.list_neighbours), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
+        onView(ViewMatchers.withId(R.id.fab)).perform(click());
+        onView(ViewMatchers.withId(R.id.fab)).perform(pressBack());
+        onView(withId(R.id.container)).perform(swipeLeft());
+
+        onView(allOf(ViewMatchers.withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(favoritesCount + 1));
+
     }
 
 }
